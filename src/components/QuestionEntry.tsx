@@ -23,24 +23,22 @@ export default function QuestionEntry({ question }: QuestionEntryProps) {
           <h3 className="font-serif text-lg font-medium text-stone-800 group-hover:text-stone-900 mb-3 leading-snug">
             {question.question_text}
           </h3>
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap">
             <ConsensusIndicator score={question.consensus_score} size="sm" />
-
-            <div className="flex items-center gap-2">
-              <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs ${
-                needsMoreCitations
-                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              }`}>
-                <BookOpen size={10} />
-                {citationCount}/{REQUIRED_CITATIONS}
-              </div>
-
-              {question.is_complete ? (
-                <span className="text-xs text-emerald-600 font-medium">Complete</span>
-              ) : (
-                <span className="text-xs text-red-600 font-medium">Incomplete</span>
+            <div className="flex items-center gap-1.5 text-xs">
+              <BookOpen size={12} className="text-stone-400" />
+              <span className="text-stone-500">
+                {citationCount} citation{citationCount !== 1 ? 's' : ''}
+              </span>
+              {!question.is_complete && (
+                <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+                  <AlertTriangle size={10} />
+                  {citationsNeeded} needed
+                </span>
               )}
+              <span className={`ml-2 ${question.is_complete ? 'text-emerald-600' : 'text-red-500'}`}>
+                {question.is_complete ? 'Complete' : 'Incomplete'}
+              </span>
             </div>
           </div>
         </div>
