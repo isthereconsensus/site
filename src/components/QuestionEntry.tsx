@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, BookOpen } from 'lucide-react';
+import { ChevronRight, BookOpen, TriangleAlert } from 'lucide-react';
 import ConsensusIndicator from './ConsensusIndicator';
 import type { Question } from '../types/database';
 
@@ -12,6 +12,7 @@ interface QuestionEntryProps {
 export default function QuestionEntry({ question }: QuestionEntryProps) {
   const citationCount = question.citation_count;
   const needsMoreCitations = citationCount < REQUIRED_CITATIONS;
+  const citationsNeeded = Math.max(0, REQUIRED_CITATIONS - citationCount);
 
   return (
     <Link
@@ -32,7 +33,10 @@ export default function QuestionEntry({ question }: QuestionEntryProps) {
               </span>
               {!question.is_complete && (
                 <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
-                  <AlertTriangle size={10} />
+                  <TriangleAlert size={10} />
+                  {citationsNeeded} needed
+                </span>
+              )}
                   {citationsNeeded} needed
                 </span>
               )}
