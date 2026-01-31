@@ -37,9 +37,6 @@ export default function QuestionEntry({ question }: QuestionEntryProps) {
                   {citationsNeeded} needed
                 </span>
               )}
-                  {citationsNeeded} needed
-                </span>
-              )}
               <span className={`ml-2 ${question.is_complete ? 'text-emerald-600' : 'text-red-500'}`}>
                 {question.is_complete ? 'Complete' : 'Incomplete'}
               </span>
@@ -54,3 +51,4 @@ export default function QuestionEntry({ question }: QuestionEntryProps) {
     </Link>
   );
 }
+
