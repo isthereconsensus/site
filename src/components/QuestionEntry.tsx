@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, BookOpen, TriangleAlert } from 'lucide-react';
+import { ChevronRight, BookOpen, AlertTriangle as TriangleAlert } from 'lucide-react';
 import ConsensusIndicator from './ConsensusIndicator';
 import type { Question } from '../types/database';
 
