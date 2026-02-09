@@ -1,8 +1,8 @@
-import { useRouter } from 'next/navigation'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import { cn } from '@/lib/utils'
-import { createClient } from '@/lib/supabase/client'
+import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -18,19 +18,17 @@ export function UpdatePasswordForm({ className, ...props }: React.ComponentProps
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const navigate = useNavigate()
 
-  const handleForgotPassword = async (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault()
-    const supabase = createClient()
     setIsLoading(true)
     setError(null)
 
     try {
       const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
-      // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push('/protected')
+      navigate('/protected')
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -46,7 +44,7 @@ export function UpdatePasswordForm({ className, ...props }: React.ComponentProps
           <CardDescription>Please enter your new password below.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleForgotPassword}>
+          <form onSubmit={handleUpdatePassword}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="password">New password</Label>
